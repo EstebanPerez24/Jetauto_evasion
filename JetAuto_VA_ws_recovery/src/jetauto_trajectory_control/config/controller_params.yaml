@@ -1,0 +1,48 @@
+cinem_PD:
+  kp: 2.7
+  kd: 0.028
+
+cinem_PI:
+  kp: 4.76
+  ki: 1.18
+
+cinem_Lyap:
+  kp: 2.2
+
+pid:
+  x_kp: 6.76
+  x_ki: 2.18
+  x_kd: 0.09
+  y_kp: 6.76
+  y_ki: 2.18
+  y_kd: 0.09
+  theta_kp: 2.2
+  theta_ki: 0.05
+  theta_kd: 0.01
+
+Fuzzy:
+  K1: 0.2
+  K2: 0.2
+  Kf: 15
+
+SMC_TF:
+  K_v: 1
+  K_w: 1
+  tau_v: 0.98
+  tau_w: 1.458
+  
+  K_d: 0.05
+  delta: 0.85
+  lambda_0: 1.5
+  
+SMC:
+  K_d: 0.01
+  delta: 0.5
+  lambda_d: 0.3
+  lambda_p: 0.15
+  lambda_i: 1.2
+  
+NS:
+  Kp: 5
+  Kd: 0.1
+  Ki: 0.2

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Lanzar gmapping para el RVIZ-->
+    <include file="$(find jetauto_mapping)/launch/gmapping.launch" />
+
+    <!-- Lanzar detección de AprilTags -->
+    <include file="$(find jetauto_mapping)/launch/detection.launch" />
+
+    <!-- Lanzar visualización del mapa en RVIZ-->
+    <include file="$(find jetauto_mapping)/launch/manual_map.launch" />
+
+    <!-- Lanzar estimacion de pose-->
+    <include file="$(find jetauto_pose_estiamation)/launch/jetauto_pose_estimation.launch"/>
+
+    <!-- Lanzar Driver Speed-->
+    <!--<include file="$(find jetauto_driver_speed)/launch/jetauto_driver_speed.launch"/>-->
+
+    <!-- Lanzar nodo de visualización de cámara con tags -->
+    <node pkg="jetauto_mapping" type="camera_view.py" name="camera_view" output="screen" />
+
+
+</launch>
+
+
+
+
+

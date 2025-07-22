@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Nodo del joystick -->
+    <node name="joystick1" pkg="joy" type="joy_node" output="screen">
+        <param name="dev" value="/dev/input/js1"/> 
+    </node>
+
+
+</launch>

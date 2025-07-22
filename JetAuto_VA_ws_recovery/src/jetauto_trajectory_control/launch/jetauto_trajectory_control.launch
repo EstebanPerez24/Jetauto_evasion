@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Define the control and sim arguments -->
+  <arg name="controller_type" default="SMC_2_APF" />  <!-- Lyap, PD, PI, PID, COMP,NS_Lyap,NS_PID,NS_PI,NS_PD, SMC_V1, PI_APF, NS_Lyap_APF, SMC_2_APF, PD_ANFIS-->
+  <arg name="path_type" default="rectangle" /> <!-- ellipse, lemniscate, spiral, line, sine, rectangle -->
+  <arg name="tiempo_muestreo" default="0.1" /> <!-- A valores bajos < 0.15, no se alcanza a hacer append -> error -->
+  <arg name="tiempo_total" default="33" /> <!-- /odom (gazebo), /jetauto_odom_sim (pose estimator) -->
+  <arg name="guardar_datos" default= "True" /> <!-- /parametro para guardar o no datos en un txt -->
+  
+  <!-- Load parameters based on the controller type -->
+  <param name="path_type" type="str" value="$(arg path_type)" />
+  <param name="tiempo_muestreo" type="double" value="$(arg tiempo_muestreo)" />
+  <param name="tiempo_total" type="double" value="$(arg tiempo_total)" />
+  <param name="guardar_datos" type="bool" value="$(arg guardar_datos)" />
+
+  <param name="r"   type = "double"    value="0.0485"/>   <!-- wheel radius -->
+  <param name="lx"   type = "double"    value="0.0975"/>  <!-- distance in cm along the x axis from center between the two wheels to one of the wheels -->
+  <param name="ly"   type = "double"    value="0.103"/>   <!-- distance in cm along the y axis from center between the two wheels to one of the wheels -->
+  
+  <!-- Load trajectory parameters -->
+  <rosparam file="$(find jetauto_trajectory_control)/config/trajectory_params.yaml" command="load" />
+
+  <rosparam file="$(find jetauto_trajectory_control)/config/controller_params.yaml" command="load" />
+
+
+  <!-- Launch case -->
+  <node name="Pose_Estimation" pkg="jetauto_pose_estiamation" type="pose_estimation.py" output="screen"/>
+  <!--<node name="Hough_Lines" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>-->
+  <include file="$(find jetauto_driver_speed)/launch/jetauto_driver_speed.launch"/>
+  <group if="$(eval controller_type == 'PD')">
+   <node name="controller_cinem_PD" pkg="jetauto_trajectory_control" type="controller_cinem_PD.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'PI')">
+    <node name="controller_cinem_PI" pkg="jetauto_trajectory_control" type="controller_cinem_PI.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'Lyap')">
+    <node name="controller_cinem_Lyap" pkg="jetauto_trajectory_control" type="controller_cinem_Lyap.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'PID')">
+    <node name="controller_pid" pkg="jetauto_trajectory_control" type="controller_pid.py" output="screen" />
+  </group>
+  
+  <group if="$(eval controller_type == 'COMP')">
+    <node name="controller_pid" pkg="jetauto_trajectory_control" type="comp_cuadrado.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'NS_Lyap')">
+    <node name="controller_cinem_NS_Lyap" pkg="jetauto_trajectory_control" type="controller_cinem_NS_Lyap.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'NS_PD')">
+    <node name="controller_cinem_NS_PD" pkg="jetauto_trajectory_control" type="controller_cinem_NS_PD.py" output="screen" />
+  </group>
+  
+  <group if="$(eval controller_type == 'NS_PI')">
+    <node name="controller_cinem_NS_PI" pkg="jetauto_trajectory_control" type="controller_cinem_NS_PI.py" output="screen" />
+  </group>
+  
+  <group if="$(eval controller_type == 'NS_PID')">
+    <node name="controller_cinem_NS_PID" pkg="jetauto_trajectory_control" type="controller_cinem_NS_PID.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'SMC_V1')">
+    <node name="controller_cinem_SMC_1" pkg="jetauto_trajectory_control" type="controller_cinem_SMC_PID_1.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'SMC_V2')">
+    <node name="controller_cinem_SMC_2" pkg="jetauto_trajectory_control" type="controller_cinem_SMC_PID_2.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'SMC_V3')">
+    <node name="controller_cinem_SMC_3" pkg="jetauto_trajectory_control" type="controller_cinem_SMC_PID_3.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'Evasion_APF')">
+    <node name="controller_Evasion_APF" pkg="jetauto_trajectory_control" type="Evasion_APF.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'PI_APF')">
+    <node name="controller_Evasion_PI_APF" pkg="jetauto_trajectory_control" type="controller_cinem_PI_APF.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'NS_Lyap_APF')">
+    <node name="controller_Evasion_NSLyap_APF" pkg="jetauto_trajectory_control" type="controller_cinem_NS_Lyap_APF.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'SMC_2_APF')">
+    <node name="controller_Evasion_SMC_APF" pkg="jetauto_trajectory_control" type="controller_cinem_SMC_PID_2_APF.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'PD_ANFIS')">
+    <node name="controller_Evasion_PD_ANFIS" pkg="jetauto_trajectory_control" type="controller_avoidance_PD_Fuzzy.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'Test_Fuzzy')">
+    <node name="controller_Test_Fuzzy" pkg="jetauto_trajectory_control" type="Test_Fuzzy.py" output="screen" />
+  </group>
+
+  <group if="$(eval controller_type == 'PI_APF')">
+    <node name="Laserscan" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>
+  </group>
+
+  <group if="$(eval controller_type == 'NS_Lyap_APF')">
+    <node name="Laserscan" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>
+  </group>
+
+  <group if="$(eval controller_type == 'SMC_2_APF')">
+    <node name="Laserscan" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>
+  </group>
+
+  <group if="$(eval controller_type == 'Evasion_APF')">
+    <node name="Laserscan" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>
+  </group>
+
+  <group if="$(eval controller_type == 'PD_ANFIS')">
+    <node name="Laserscan" pkg="jetauto_trajectory_control" type="FuzzyLidar.py" output="screen"/>
+  </group>
+
+
+</launch>
+

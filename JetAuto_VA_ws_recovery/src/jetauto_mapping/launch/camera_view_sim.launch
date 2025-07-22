@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="jetauto_mapping" type="camera_view.py" name="camera_view_sim" output="screen">
+    <param name="fx" value="530.467" />
+    <param name="fy" value="530.467" />
+    <param name="cx" value="320.5" />
+    <param name="cy" value="240.5" />
+    <param name="image_topic" value="/usb_cam/image_raw" />
+  </node>
+</launch>
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+<!--Comentario-->
+<param name="enable_ang_speed_filter"   type = "bool"    value="True"/>
+<param name="frecuency"   type = "int"    value="100"/>
+<param name="port"               type = "str"    value="/dev/ttyUSB1"/>
+<param name="baud"               type = "int"    value="9600"/>
+
+    <!-- imu python 
+    <node pkg="jetauto_drivers" type="wit_normal_ros.py" name="imu" output="screen">
+        <param name="port"               type = "str"    value="/dev/ttyUSB1"/>
+        <param name="baud"               type = "int"    value="115200"/>
+	<remap from="/wit/imu" to="/imu/data"/>
+    </node> -->
+
+    <!-- load rviz
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find jetauto_drivers)/rviz/wit_ros_imu.rviz">
+    </node> -->
+
+    <node name="IMU_Encoder" pkg="jetauto_drivers" type="imu_encoder.py" output="screen"/>  
+    <!--<node name="IMU_Encoder2" pkg="jetauto_drivers" type="imu_encoder2.py" output="screen"/>  -->
+</launch>

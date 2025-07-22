@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+<!--Comentario-->
+
+  <node name="Speed_Driver" pkg="jetauto_driver_speed" type="driver_speed_disc.py" output="screen"/>
+  <node name="CMD_Motors" pkg="jetauto_driver_speed" type="cmd_motors.py" output="screen"/>
+  <include file="$(find jetauto_drivers)/launch/jetauto_drivers.launch"/>
+
+</launch>

@@ -1,0 +1,544 @@
+{
+  "engine": "anfis_vx",
+  "inputs": [
+    {
+      "name": "in1",
+      "range": [
+        0.2,
+        1.0
+      ],
+      "terms": [
+        {
+          "name": "in1cluster1",
+          "type": "gaussian",
+          "parameters": [
+            0.0874961069882882,
+            0.754045202718157
+          ]
+        },
+        {
+          "name": "in1cluster2",
+          "type": "gaussian",
+          "parameters": [
+            0.0689401363998509,
+            0.457139106210958
+          ]
+        },
+        {
+          "name": "in1cluster3",
+          "type": "gaussian",
+          "parameters": [
+            0.0871478376317206,
+            0.69352445947104
+          ]
+        },
+        {
+          "name": "in1cluster4",
+          "type": "gaussian",
+          "parameters": [
+            0.0737218366181782,
+            0.460064257936753
+          ]
+        },
+        {
+          "name": "in1cluster5",
+          "type": "gaussian",
+          "parameters": [
+            0.0859565745562748,
+            0.788745200904396
+          ]
+        },
+        {
+          "name": "in1cluster6",
+          "type": "gaussian",
+          "parameters": [
+            0.0568487788387121,
+            0.434746425623582
+          ]
+        },
+        {
+          "name": "in1cluster7",
+          "type": "gaussian",
+          "parameters": [
+            0.0851555333117495,
+            0.920946654334606
+          ]
+        },
+        {
+          "name": "in1cluster8",
+          "type": "gaussian",
+          "parameters": [
+            0.0851177483780962,
+            0.945357803299435
+          ]
+        },
+        {
+          "name": "in1cluster9",
+          "type": "gaussian",
+          "parameters": [
+            0.0849116152981835,
+            0.978148744124206
+          ]
+        },
+        {
+          "name": "in1cluster10",
+          "type": "gaussian",
+          "parameters": [
+            0.0599796329617044,
+            0.217114964821129
+          ]
+        },
+        {
+          "name": "in1cluster11",
+          "type": "gaussian",
+          "parameters": [
+            0.0365429015217544,
+            0.179134656437568
+          ]
+        },
+        {
+          "name": "in1cluster12",
+          "type": "gaussian",
+          "parameters": [
+            0.0675351008877376,
+            0.205871485595582
+          ]
+        },
+        {
+          "name": "in1cluster13",
+          "type": "gaussian",
+          "parameters": [
+            0.0256449662445304,
+            0.251738878001756
+          ]
+        },
+        {
+          "name": "in1cluster14",
+          "type": "gaussian",
+          "parameters": [
+            0.0770102553658809,
+            0.263335974954763
+          ]
+        },
+        {
+          "name": "in1cluster15",
+          "type": "gaussian",
+          "parameters": [
+            0.0411880345324238,
+            0.266011159807443
+          ]
+        }
+      ]
+    },
+    {
+      "name": "in2",
+      "range": [
+        -90.0,
+        88.673468
+      ],
+      "terms": [
+        {
+          "name": "in2cluster1",
+          "type": "gaussian",
+          "parameters": [
+            18.9511841006901,
+            -57.7203390219798
+          ]
+        },
+        {
+          "name": "in2cluster2",
+          "type": "gaussian",
+          "parameters": [
+            18.9511711768166,
+            58.7174348530994
+          ]
+        },
+        {
+          "name": "in2cluster3",
+          "type": "gaussian",
+          "parameters": [
+            18.9511863560163,
+            2.60236526706811
+          ]
+        },
+        {
+          "name": "in2cluster4",
+          "type": "gaussian",
+          "parameters": [
+            18.9512009014408,
+            -58.7724069648891
+          ]
+        },
+        {
+          "name": "in2cluster5",
+          "type": "gaussian",
+          "parameters": [
+            18.9511835800353,
+            59.9887676309855
+          ]
+        },
+        {
+          "name": "in2cluster6",
+          "type": "gaussian",
+          "parameters": [
+            18.9513070849187,
+            -0.0393107712723036
+          ]
+        },
+        {
+          "name": "in2cluster7",
+          "type": "gaussian",
+          "parameters": [
+            18.9511833470415,
+            -0.0783776437684486
+          ]
+        },
+        {
+          "name": "in2cluster8",
+          "type": "gaussian",
+          "parameters": [
+            18.9511832487018,
+            -62.3495299284171
+          ]
+        },
+        {
+          "name": "in2cluster9",
+          "type": "gaussian",
+          "parameters": [
+            18.9511832055132,
+            57.0345550497723
+          ]
+        },
+        {
+          "name": "in2cluster10",
+          "type": "gaussian",
+          "parameters": [
+            18.9488469866427,
+            -0.298205326233272
+          ]
+        },
+        {
+          "name": "in2cluster11",
+          "type": "gaussian",
+          "parameters": [
+            18.9515121833059,
+            62.8831028490435
+          ]
+        },
+        {
+          "name": "in2cluster12",
+          "type": "gaussian",
+          "parameters": [
+            18.9516754020427,
+            -60.4652774553891
+          ]
+        },
+        {
+          "name": "in2cluster13",
+          "type": "gaussian",
+          "parameters": [
+            18.9509020512484,
+            57.2751410490844
+          ]
+        },
+        {
+          "name": "in2cluster14",
+          "type": "gaussian",
+          "parameters": [
+            18.9534030852863,
+            -0.767321008832166
+          ]
+        },
+        {
+          "name": "in2cluster15",
+          "type": "gaussian",
+          "parameters": [
+            18.9506802841791,
+            -61.0912569236391
+          ]
+        }
+      ]
+    }
+  ],
+  "outputs": {
+    "name": "out1",
+    "range": [
+      -0.184,
+      0.184
+    ],
+    "terms": [
+      {
+        "name": "out1cluster1",
+        "type": "linear",
+        "parameters": [
+          -0.00185436492173915,
+          -7.69595445729168e-07,
+          0.185320060769007
+        ]
+      },
+      {
+        "name": "out1cluster2",
+        "type": "linear",
+        "parameters": [
+          -0.0380073782931484,
+          -3.55058044836434e-05,
+          0.204786940720334
+        ]
+      },
+      {
+        "name": "out1cluster3",
+        "type": "linear",
+        "parameters": [
+          -0.0115741690708387,
+          1.58990234272008e-06,
+          0.192093373243532
+        ]
+      },
+      {
+        "name": "out1cluster4",
+        "type": "linear",
+        "parameters": [
+          -0.0111185031371064,
+          1.02023631376857e-05,
+          0.190593707952474
+        ]
+      },
+      {
+        "name": "out1cluster5",
+        "type": "linear",
+        "parameters": [
+          -0.0114624203534082,
+          1.41172382458211e-06,
+          0.192394601679742
+        ]
+      },
+      {
+        "name": "out1cluster6",
+        "type": "linear",
+        "parameters": [
+          -0.306956999095107,
+          -5.8554264656481e-05,
+          0.356010777823022
+        ]
+      },
+      {
+        "name": "out1cluster7",
+        "type": "linear",
+        "parameters": [
+          -0.00525072340026044,
+          1.40086947209125e-07,
+          0.189100350342735
+        ]
+      },
+      {
+        "name": "out1cluster8",
+        "type": "linear",
+        "parameters": [
+          -0.00126507770599594,
+          9.19042216659229e-07,
+          0.185309131287346
+        ]
+      },
+      {
+        "name": "out1cluster9",
+        "type": "linear",
+        "parameters": [
+          -0.0150453976330428,
+          5.73176872985771e-06,
+          0.198704730832369
+        ]
+      },
+      {
+        "name": "out1cluster10",
+        "type": "linear",
+        "parameters": [
+          -3.24040164980035,
+          0.00287282194215678,
+          -1.14350544421131
+        ]
+      },
+      {
+        "name": "out1cluster11",
+        "type": "linear",
+        "parameters": [
+          -4.91485178527516,
+          0.000392689801226999,
+          0.773383572053796
+        ]
+      },
+      {
+        "name": "out1cluster12",
+        "type": "linear",
+        "parameters": [
+          -0.235962267373116,
+          -0.000186438567481412,
+          -0.090653670588525
+        ]
+      },
+      {
+        "name": "out1cluster13",
+        "type": "linear",
+        "parameters": [
+          2.21595263664148,
+          0.000790452055373126,
+          -0.648940433176758
+        ]
+      },
+      {
+        "name": "out1cluster14",
+        "type": "linear",
+        "parameters": [
+          -9.46275458814051,
+          -0.00037216313334941,
+          3.86971486954837
+        ]
+      },
+      {
+        "name": "out1cluster15",
+        "type": "linear",
+        "parameters": [
+          6.01704830678271,
+          0.000281702928056597,
+          -1.58431263546247
+        ]
+      }
+    ]
+  },
+  "rules": [
+    {
+      "antecedent": [
+        1,
+        1
+      ],
+      "consequent": 1,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        2,
+        2
+      ],
+      "consequent": 2,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        3,
+        3
+      ],
+      "consequent": 3,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        4,
+        4
+      ],
+      "consequent": 4,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        5,
+        5
+      ],
+      "consequent": 5,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        6,
+        6
+      ],
+      "consequent": 6,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        7,
+        7
+      ],
+      "consequent": 7,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        8,
+        8
+      ],
+      "consequent": 8,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        9,
+        9
+      ],
+      "consequent": 9,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        10,
+        10
+      ],
+      "consequent": 10,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        11,
+        11
+      ],
+      "consequent": 11,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        12,
+        12
+      ],
+      "consequent": 12,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        13,
+        13
+      ],
+      "consequent": 13,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        14,
+        14
+      ],
+      "consequent": 14,
+      "weight": 1,
+      "connection": 1
+    },
+    {
+      "antecedent": [
+        15,
+        15
+      ],
+      "consequent": 15,
+      "weight": 1,
+      "connection": 1
+    }
+  ]
+}

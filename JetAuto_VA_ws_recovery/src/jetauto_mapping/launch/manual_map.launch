@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Define launch arguments with default values for map parameters -->
+    <arg name="resolution" default="0.01" doc="Map resolution (meters per cell)"/>
+    <arg name="xmin" default="-5.0" doc="Minimum X coordinate of the map area"/>
+    <arg name="xmax" default="5.0" doc="Maximum X coordinate of the map area"/>
+    <arg name="ymin" default="-5.0" doc="Minimum Y coordinate of the map area"/>
+    <arg name="ymax" default="5.0" doc="Maximum Y coordinate of the map area"/>
+
+    <!-- Node to publish the occupancy grid map -->
+    <node name="map_simulator" pkg="jetauto_mapping" type="mapping_apriltags.py" output="screen">
+        <!-- Pass the parameters to the node's private namespace -->
+        <param name="resolution" value="$(arg resolution)"/>
+        <param name="xmin" value="$(arg xmin)"/>
+        <param name="xmax" value="$(arg xmax)"/>
+        <param name="ymin" value="$(arg ymin)"/>
+        <param name="ymax" value="$(arg ymax)"/>
+    </node>
+</launch>
+
