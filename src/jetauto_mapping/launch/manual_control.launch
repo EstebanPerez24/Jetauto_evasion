@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Nodo del joystick físico -->
+    <node name="joystick1" pkg="joy" type="joy_node" output="screen">
+        <param name="dev" value="/dev/input/js0"/>
+    </node>
+
+    <!-- Nodo de control del JetAuto por joystick -->
+    <node name="joy_controller" pkg="jetauto_mapping" type="joy_controller.py" output="screen" />
+    <!-- Launch case -->
+    <node name="Pose_Estimation" pkg="jetauto_pose_estiamation" type="pose_estimation.py" output="screen"/>
+    <!--<node name="Hough_Lines" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>-->
+    <include file="$(find jetauto_driver_speed)/launch/jetauto_driver_speed.launch"/>
+</launch>
+

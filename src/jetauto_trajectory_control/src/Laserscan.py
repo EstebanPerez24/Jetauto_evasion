@@ -90,8 +90,8 @@ class PoseControl:
                 cv2.line(img, (int(x1 * 100 + 250), int(y1 * 100 + 250)), 
                          (int(x2 * 100 + 250), int(y2 * 100 + 250)), (200, 200, 200), 2)
 
-        #cv2.imshow("Lidar Hough Lines", img)
-        #cv2.waitKey(1)
+        cv2.imshow("Lidar Hough Lines", img)
+        cv2.waitKey(1)
 
         # Detectar múltiples obstáculos usando clustering
         self.detect_obstacles(points)

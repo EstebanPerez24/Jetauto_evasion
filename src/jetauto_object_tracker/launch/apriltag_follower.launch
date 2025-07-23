@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Lanzar detección de AprilTags -->
+    <include file="$(find jetauto_mapping)/launch/detection.launch" />
+
+    <!-- Lanzar nodo de visualización de cámara con tags -->
+    <node pkg="jetauto_mapping" type="camera_view.py" name="camera_view" output="screen" />
+    
+    <!-- Lanzar nodo seguidor de objeto -->
+    <node pkg="jetauto_object_tracker" type="apriltag_follower.py" name="apriltag_follower" output="screen" />
+    
+    <node name="Pose_Estimation" pkg="jetauto_pose_estiamation" type="pose_estimation.py" output="screen"/>
+    <!--<node name="Hough_Lines" pkg="jetauto_trajectory_control" type="Laserscan.py" output="screen"/>-->
+    <include file="$(find jetauto_driver_speed)/launch/jetauto_driver_speed.launch"/>
+
+</launch>
+
+
+
+
+

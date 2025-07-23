@@ -31,6 +31,13 @@ class Fuzzy_Laserscan:
         self.y = 0
         self.theta = 0.0
 
+        # Para guardado eficiente de centroides
+        # Para guardado eficiente de centroides
+        self.last_centroid = [None, None]
+        self.last_save_time = rospy.get_time()
+        self.save_interval = 1.0  # en segundos
+        self.centroid_log_path = os.path.join(os.path.dirname(__file__), "centroid_log.txt")
+
         rospy.sleep(1.0)
 
     def odom_callback(self, msg):
@@ -48,6 +55,27 @@ class Fuzzy_Laserscan:
         """Normaliza un ángulo entre -pi y pi."""
         return -np.arctan2(np.sin(angle), np.cos(angle))
 
+    def should_save_centroid(self, new_centroid):
+        now = rospy.get_time()
+        if self.last_centroid[0] is None:
+            return True
+        delta_r = abs(new_centroid[0] - self.last_centroid[0])
+        delta_theta = abs(new_centroid[1] - self.last_centroid[1])
+        if delta_r > 0.1 or delta_theta > 5:
+            return now - self.last_save_time >= self.save_interval
+        return False
+
+
+    def should_save_centroid(self, new_centroid):
+        now = rospy.get_time()
+        if self.last_centroid[0] is None:
+            return True
+        delta_r = abs(new_centroid[0] - self.last_centroid[0])
+        delta_theta = abs(new_centroid[1] - self.last_centroid[1])
+        if delta_r > 0.1 or delta_theta > 5:
+            return now - self.last_save_time >= self.save_interval
+        return False
+
     def lidar_callback(self, msg):
         angle_min_rad = np.pi / 2  # 90°
         angle_max_rad = 3 * np.pi / 2  # 270°
@@ -61,16 +89,16 @@ class Fuzzy_Laserscan:
             #angle = angle % (2 * np.pi)
 
             if -500 <= angle <= 500:
-                if msg.range_min <= distance <= min(1.5, msg.range_max) and not np.isnan(distance) and not np.isinf(distance):
+                if msg.range_min <= distance <= min(1.2, msg.range_max) and not np.isnan(distance) and not np.isinf(distance):
                     converted_angle = np.pi - angle
                     x = distance * np.cos(converted_angle)
                     y = distance * np.sin(converted_angle)
                     x_points.append(x)
                     y_points.append(y)
 
-        if len(x_points) >= 3:
+        if len(x_points) >= 2:
             points = np.column_stack((x_points, y_points))
-            clustering = DBSCAN(eps=0.02, min_samples=3).fit(points)
+            clustering = DBSCAN(eps=0.01, min_samples=2).fit(points)
             labels = clustering.labels_
 
             unique_labels = set(labels)
@@ -93,7 +121,15 @@ class Fuzzy_Laserscan:
                 angle_to_centroid = self.normalize_angle(np.arctan2(centroid_y, centroid_x))
 
                 centroid_data = [distance_to_centroid, np.degrees(angle_to_centroid)]
-                rospy.loginfo(f"[CLÚSTER MÁS CERCANO] r = {distance_to_centroid:.2f}, θ = {np.degrees(angle_to_centroid):.2f}°")
+                #rospy.loginfo(f"[CLÚSTER MÁS CERCANO] r = {distance_to_centroid:.2f}, θ = {np.degrees(angle_to_centroid):.2f}°")
+
+                # Guardado controlado
+                if self.should_save_centroid(centroid_data):
+                    self.last_centroid = centroid_data.copy()
+                    self.last_save_time = rospy.get_time()
+                    with open(self.centroid_log_path, "a") as f:
+                        f.write(f"{self.last_save_time:.2f}, r={centroid_data[0]:.3f}, theta={centroid_data[1]:.2f}\n")
+
             else:
                 centroid_data = [1.0, 360.0]
                 rospy.loginfo("No se detectó ningún clúster válido.")
