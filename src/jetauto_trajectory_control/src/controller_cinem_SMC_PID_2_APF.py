@@ -200,12 +200,10 @@ class PoseControl:
             return 0.0, 0.0
 
         if self.trajectory_name == "rectangle":
-            # 📌 En rectángulo, calculamos distancias separadas para X e Y
             avg_distance_x, avg_distance_y = self.calculate_rectangle_distances()
             print("Distancia promedio para", self.trajectory_name,":", "X = ",avg_distance_x, "Y = ",avg_distance_y)
             return avg_distance_x, avg_distance_y
 
-        # Para otras trayectorias (Elipse, Lemniscata)
         distances = np.sqrt(np.diff(self.goalx) ** 2 + np.diff(self.goaly) ** 2)
         avg_distance = np.mean(distances) if len(distances) > 0 else 0.0
 
@@ -231,9 +229,6 @@ class PoseControl:
         return avg_distance, avg_distance  # Retornamos valores iguales para ejes X e Y
 
     def calculate_rectangle_distances(self):
-        """
-        Calcula la distancia promedio entre puntos en X y Y de una trayectoria rectangular.
-        """
         length = self.params[0]  # Largo del rectángulo
         width = self.params[1]   # Ancho del rectángulo
         num_points = len(self.goalx)
@@ -249,15 +244,9 @@ class PoseControl:
         return avg_distance_x, avg_distance_y
 
     def calculate_future_index(self, obstacle_size):
-        """
-        Calcula cuántos índices adelante hay que moverse para evadir el obstáculo.
-        :param obstacle_size: Tamaño del obstáculo (ancho o alto).
-        :return: Número de índices que deben saltarse en la trayectoria.
-        """
         avg_distance_x, avg_distance_y = self.calculate_average_distance()
 
         if self.trajectory_name == "rectangle":
-            # 📌 Decidir si moverse en X o en Y según la dirección de la evasión
             if abs(self.goalx[self.evasion_start_index + 1] - self.goalx[self.evasion_start_index]) > \
                abs(self.goaly[self.evasion_start_index + 1] - self.goaly[self.evasion_start_index]):
                 steps_needed = int(np.ceil((obstacle_size + 0.45) / avg_distance_x)) if avg_distance_x > 0 else 10
@@ -271,18 +260,15 @@ class PoseControl:
 
 
     def find_future_goal(self, current_index):
-        """
-        Encuentra un punto de evasión basado en la distancia entre puntos de la trayectoria.
-        """
         if self.evasion_start_index is None:
             self.evasion_start_index = current_index
             print("Comenzando evasion en indice", self.evasion_start_index)
 
-        # 📌 Determinar la cantidad de índices que deben moverse
+        #Determinar la cantidad de índices que deben moverse
         obstacle_size = max(self.max_obstacle_width, self.max_obstacle_height)
         future_steps = self.calculate_future_index(obstacle_size)
 
-        # 📌 Seleccionar el índice futuro
+        #Seleccionar el índice futuro
         future_index = min(self.evasion_start_index + future_steps, len(self.goalx) - 1)
         goal_x, goal_y = self.goalx[future_index], self.goaly[future_index]
 
@@ -453,24 +439,24 @@ class PoseControl:
             repulsive_force = self.calculate_repulsive_force(self.x, self.y)
 
             if np.any(repulsive_force != 0) and self.aux_apf + 10 <= i:  # Se detecta obstáculo
-                if not self.using_apf:  # 📌 Si es la primera vez que detectamos el obstáculo
+                if not self.using_apf:  # Si es la primera vez que detectamos el obstáculo
                     self.using_apf = True
                     self.evasion_start_index = i
                     self.fixed_index = i 
 
                     print("Comenzando evasion en indice", self.evasion_start_index)
 
-                    # 🔍 Buscar un punto que cubra al obstáculo detectado
+                    # Buscar un punto que cubra al obstáculo detectado
                     new_evasion_goal_x, new_evasion_goal_y, new_evasion_index = self.find_future_goal(self.evasion_start_index)
                     
                     print("Punto de evasion encontrado:", new_evasion_goal_x, new_evasion_goal_y, "indice:",new_evasion_index)
                     self.evasion_goal = (new_evasion_goal_x, new_evasion_goal_y)
 
-                # 📌 Si el obstáculo "crece", actualizar el punto de evasión
+                # Si el obstáculo aumenta, actualizar el punto de evasión
                 elif self.max_obstacle_width > 0 and self.max_obstacle_height > 0:
                     new_evasion_goal_x, new_evasion_goal_y, new_evasion_index = self.find_future_goal(self.evasion_start_index)
 
-                    # 📌 Solo actualizar si es un punto nuevo
+                    # Solo actualizar si es un punto nuevo
                     if (new_evasion_goal_x, new_evasion_goal_y) != self.evasion_goal and new_evasion_index > i:
                         print("Ajustando punto de evasion:", new_evasion_goal_x, new_evasion_goal_y, "indice:", new_evasion_index)
                         self.evasion_goal = (new_evasion_goal_x, new_evasion_goal_y)
