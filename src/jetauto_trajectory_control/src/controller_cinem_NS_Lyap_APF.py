@@ -190,7 +190,7 @@ class PoseControl:
             avg_distance = circumference / len(self.goalx)
 
         elif self.trajectory_name == "lemniscate":
-            # 📌 En la lemniscata, el espaciamiento de los puntos no es uniforme
+            # En la lemniscata, el espaciamiento de los puntos no es uniforme
             distances = np.sqrt(np.diff(self.goalx) ** 2 + np.diff(self.goaly) ** 2)
 
             if len(distances) > 0:
