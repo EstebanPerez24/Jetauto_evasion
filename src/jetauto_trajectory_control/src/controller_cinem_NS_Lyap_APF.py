@@ -223,7 +223,7 @@ class PoseControl:
         avg_distance_x, avg_distance_y = self.calculate_average_distance()
 
         if self.trajectory_name == "rectangle":
-            # 📌 Decidir si moverse en X o en Y según la dirección de la evasión
+            # Decidir si moverse en X o en Y según la dirección de la evasión
             if abs(self.goalx[self.evasion_start_index + 1] - self.goalx[self.evasion_start_index]) > \
                abs(self.goaly[self.evasion_start_index + 1] - self.goaly[self.evasion_start_index]):
                 steps_needed = int(np.ceil((obstacle_size + 0.25) / avg_distance_x)) if avg_distance_x > 0 else 10
